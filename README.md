@@ -1,1 +1,0 @@
-# Gesture-Translator-App
