@@ -1,4 +1,4 @@
-package com.example.gestures_translator;
+package com.example.imagepro;
 
 import org.junit.Test;
 
