@@ -34,16 +34,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBarSize2" />
 
-        <Button
-            android:id="@+id/customizeTextButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="monospace"
-            android:text="Customize text design"
+        <TextView
+            android:id="@+id/fontFamilyText"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="serif-monospace"
+            android:text="Font family"
             android:textSize="30dp"
-            android:backgroundTint="@color/material_dynamic_neutral40"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/testMemorySize" />
 
@@ -51,14 +50,13 @@
             android:id="@+id/aboutUsButton"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/material_dynamic_neutral40"
             android:clickable="true"
             android:fontFamily="monospace"
             android:text="About us"
             android:textSize="30dp"
-            android:backgroundTint="@color/material_dynamic_neutral40"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customizeTextButton" />
+            tools:layout_editor_absoluteY="324dp" />
 
         <TextView
             android:id="@+id/textBarSize2"
@@ -95,5 +93,13 @@
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBarSizeSpinner" />
+
+        <Spinner
+            android:id="@+id/fontFamilySpinner"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/memorySizeSpinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

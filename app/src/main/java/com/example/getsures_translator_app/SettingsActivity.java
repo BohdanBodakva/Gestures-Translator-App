@@ -47,6 +47,16 @@ public class SettingsActivity extends AppCompatActivity {
         memorySizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         memorySizeSpinner.setAdapter(memorySizeAdapter);
 
+        String[] fontFamilies = new String[] {
+                "Serif", "Sans-serif", "monospace", "cursive", "fantasy"
+        };
+        Spinner fontFamilySpinner = (Spinner) findViewById(R.id.fontFamilySpinner);
+        ArrayAdapter<String> fontFamilyAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, fontFamilies);
+        fontFamilyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fontFamilySpinner.setAdapter(fontFamilyAdapter);
+
+
 
 
         aboutUsButton = (Button) findViewById(R.id.aboutUsButton);
@@ -57,14 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        customizeTextButton = (Button)findViewById(R.id.customizeTextButton);
-        customizeTextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = intent = new Intent(SettingsActivity.this, CustomizeTextActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
 
 
