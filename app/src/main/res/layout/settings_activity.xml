@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/fontSize"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:fontFamily="monospace"
+            android:text="Font size"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/testMemorySize"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="monospace"
+            android:text="Memory size"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textBarSize2" />
+
+        <TextView
+            android:id="@+id/fontFamilyText"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="serif-monospace"
+            android:text="Font family"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testMemorySize" />
+
+        <Button
+            android:id="@+id/aboutUsButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+
+            android:clickable="true"
+            android:fontFamily="monospace"
+            android:text="About us"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textBarSize2"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="monospace"
+            android:text="Text bar size"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fontSize" />
+
+        <Spinner
+            android:id="@+id/fontSizeSpinner"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/textBarSizeSpinner"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fontSizeSpinner" />
+
+        <Spinner
+            android:id="@+id/memorySizeSpinner"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textBarSizeSpinner" />
+
+        <Spinner
+            android:id="@+id/fontFamilySpinner"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/memorySizeSpinner" />
+
+        <Button
+            android:id="@+id/to_camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.197"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.821"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

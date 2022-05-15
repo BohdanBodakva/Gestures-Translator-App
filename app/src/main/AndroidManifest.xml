@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.imagepro">
+    package="com.example.gesturestranslator">
 
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -25,8 +25,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImagePro">
-        <activity android:name=".CameraActivity"></activity>
-        <activity android:name=".MainActivity">
+
+        <activity android:name="com.example.gesturestranslator.SettingsActivity"></activity>
+        <activity android:name="com.example.gesturestranslator.AboutUsActivity"></activity>
+        <activity android:name="com.example.gesturestranslator.CameraActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

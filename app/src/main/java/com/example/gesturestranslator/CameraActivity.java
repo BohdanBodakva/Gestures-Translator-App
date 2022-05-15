@@ -1,17 +1,22 @@
-package com.example.imagepro;
+package com.example.gesturestranslator;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -19,10 +24,12 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 
 public class CameraActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2{
     private static final String TAG="MainActivity";
+
+    private Button settingsButton;
+
 
     private Mat mRgba;
     private Mat mGray;
@@ -69,6 +76,24 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
+        settingsButton = findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CameraActivity.this,SettingsActivity.class));
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
