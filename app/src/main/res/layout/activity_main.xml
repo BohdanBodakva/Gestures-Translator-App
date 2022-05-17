@@ -4,41 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".MainActivity">
 
-    >
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Message"
-        android:textCursorDrawable="@drawable/cursour_layout">
-        
-        <com.google.android.material.textfield.TextInputEditText
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--upper layout with future camera block-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="196dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+       <!--bottom layout with edit text block and  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+            <!--micro button to open google audio-->
+            <ImageButton
+                android:id="@+id/button_micro"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_mic_24"></ImageButton>
+            <!--copy text button-->
+            <ImageButton
+                android:id="@+id/button_copy_text"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>
+            <!--switcher between black and white themes-->
+            <Switch
+                android:id="@+id/themeSwitcher"
+                android:layout_width="50dp"
+                android:layout_height="30dp"></Switch>
+        </LinearLayout>
+
+        <!--layout for edit text block-->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="18dp"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:lines="9"
-            android:overScrollMode="always"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical"
-            android:scrollHorizontally="false"
-            android:textColor="@color/white"
-            android:textCursorDrawable="@drawable/cursour_layout" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <!--    <Button-->
-<!--        android:id="@+id/first_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Button" />-->
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Message"
+            android:textCursorDrawable="@drawable/cursour_layout">
 
-
+            <!--block where you can write a text -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="196dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="18dp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="9"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+               
+                android:textCursorDrawable="@drawable/cursour_layout" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </RelativeLayout>
