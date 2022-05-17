@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.215" />
+        <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
+        <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/drawable/rounded_edittext.xml" value="0.1435" />
         <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/layout/activity_about_us.xml" value="0.22826086956521738" />
-        <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/layout/activity_camera.xml" value="0.22826086956521738" />
+        <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/layout/activity_camera.xml" value="0.2" />
         <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/nasyp/Gestures-Translator-App/app/src/main/res/layout/settings_activity.xml" value="0.2" />
       </map>

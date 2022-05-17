@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/settings_button"
@@ -30,12 +30,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.018" />
 
-    <EditText
-        android:id="@+id/textFontSize"
-        android:layout_width="359dp"
-        android:layout_height="155dp"
-        android:background="#FFFFFF"
-        android:fontFamily="sans-serif"
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        android:layout_width="422dp"-->
+<!--        android:layout_height="218dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        android:layout_marginRight="50dp"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        android:hint=""-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.545"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.9"-->
+<!--        tools:ignore="MissingConstraints">-->
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="294dp"
+        android:layout_height="216dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#FFFFFF"
         android:gravity="top"
         android:inputType="textMultiLine"
         android:lines="9"
@@ -45,14 +64,16 @@
         android:scrollHorizontally="false"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20dp"
         android:textStyle="bold"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/frame_Surface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/frame_Surface"
         app:layout_constraintTop_toTopOf="@+id/frame_Surface"
-        app:layout_constraintVertical_bias="0.898"
-        tools:ignore="RtlCompat" />
+        app:layout_constraintVertical_bias="0.768"
+        tools:ignore="MissingConstraints,RtlCompat" />
 
     <Button
         android:id="@+id/swapCameraButton"
@@ -65,22 +86,6 @@
         app:layout_constraintStart_toStartOf="@+id/frame_Surface"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.018" />
-
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/textInputLayout"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--        android:layout_width="325dp"-->
-<!--        android:layout_height="164dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.892"-->
-
-<!--        android:layout_marginBottom="50dp">-->
-
-
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
