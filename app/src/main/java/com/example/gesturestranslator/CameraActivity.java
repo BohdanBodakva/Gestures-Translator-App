@@ -22,6 +22,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
@@ -29,11 +30,13 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     private static final String TAG="MainActivity";
 
     private Button settingsButton;
+    private Button swapCameraButton;
 
 
     private Mat mRgba;
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
+    private int mCameraId = 0;
     private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -83,6 +86,19 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                 startActivity(new Intent(CameraActivity.this,SettingsActivity.class));
             }
         });
+
+
+        swapCameraButton = findViewById(R.id.swapCameraButton);
+        swapCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCameraId = mCameraId^1; //bitwise not operation to flip 1 to 0 and vice versa
+                mOpenCvCameraView.disableView();
+                mOpenCvCameraView.setCameraIndex(mCameraId);
+                mOpenCvCameraView.enableView();
+            }
+        });
+
 
 
     }
@@ -137,6 +153,10 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba=inputFrame.rgba();
         mGray=inputFrame.gray();
+
+        if(mCameraId == 1){
+            Core.flip(mRgba, mRgba, 1);
+        }
 
         return mRgba;
 
