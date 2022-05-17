@@ -14,11 +14,9 @@
         <item name="android:navigationBarColor">@color/black</item>
         <!-- Customize your theme here. -->
 
-
 <!--        <item name="colorPrimary">#2196F3</item>-->
 <!--        <item name="colorPrimaryDark">#DF2626</item>-->
 <!--        <item name="colorAccent">#D6EF47</item>-->
-
 <!--        <item name="android:statusBarColor">#FF5722</item>-->
     </style>
 </resources>
