@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.example.mediapipemultihandstrackingapp">
+=======
+    package="com.example.imagepro">
+
+>>>>>>> 737e47703c07f358a370508498aa8ee62ccfe2eb
 
     <uses-sdk android:targetSdkVersion="27" />
     <!-- For using the camera -->

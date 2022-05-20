@@ -1,4 +1,8 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name" translatable="false">Gestures Translator</string>
     <string name="no_camera_access" translatable="false">Please grant camera permissions.</string>
+=======
+    <string name="app_name">ImagePro</string>
+>>>>>>> 737e47703c07f358a370508498aa8ee62ccfe2eb
 </resources>
