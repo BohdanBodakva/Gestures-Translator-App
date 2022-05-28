@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/inner_layout2"
-                android:background="@color/white">
+                android:background="@color/editText">
                 <EditText
                     android:gravity="start"
                     android:layout_width="match_parent"
