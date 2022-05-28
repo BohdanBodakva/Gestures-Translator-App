@@ -1,80 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/preview_display_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
-        <!--upper layout with future camera block-->
+        <TextView
+            android:id="@+id/no_camera_access_view"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="@string/no_camera_access" />
+<!--        android:layout_gravity="bottom"-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="230dp"
+            android:id="@+id/main_layout"
+            android:layout_gravity="bottom"
             android:orientation="vertical">
 
-
-        </LinearLayout>
-       <!--bottom layout with edit text block and  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
-            <!--micro button to open google audio-->
-            <ImageButton
-                android:id="@+id/button_micro"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="16dp"
-                android:background="@null"
-                android:src="@drawable/ic_baseline_mic_24"></ImageButton>
-            <!--copy text button-->
-            <ImageButton
-                android:id="@+id/button_copy_text"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@null"
-                android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>
-            <!--switcher between black and white themes-->
-            <Switch
-                android:id="@+id/themeSwitcher"
-                android:layout_width="50dp"
-                android:layout_height="30dp"></Switch>
-        </LinearLayout>
-
-        <!--layout for edit text block-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Message"
-            android:textCursorDrawable="@drawable/cursour_layout">
-
-            <!--block where you can write a text -->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="196dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="18dp"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:lines="9"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:scrollHorizontally="false"
-               
-                android:textCursorDrawable="@drawable/cursour_layout" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-</RelativeLayout>
+                android:layout_height="30dp"
+                android:id="@+id/inner_layout"
+                android:orientation="horizontal">
+                <!--micro button to open google audio-->
+                <ImageButton
+                    android:id="@+id/button_micro"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_baseline_mic_24"></ImageButton>
+                <!--copy text button-->
+                <ImageButton
+                    android:id="@+id/button_copy_text"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>
+                <!--switcher between black and white themes-->
+                <Switch
+                    android:id="@+id/themeSwitcher"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"></Switch>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/inner_layout2"
+                android:background="@color/editText">
+                <EditText
+                    android:gravity="start"
+                    android:layout_width="match_parent"
+                    android:id="@+id/editText"
+                    android:layout_height="200dp"></EditText>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
