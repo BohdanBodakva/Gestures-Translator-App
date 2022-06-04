@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/preview_display_layout"
@@ -51,6 +52,12 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"></Switch>
 
+                <ImageButton
+                    android:id="@+id/SettingsButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:src="@drawable/settings"></ImageButton>
             </LinearLayout>
 <!--            <Switch-->
 <!--                android:id="@+id/frontBackCameraSwitcher"-->
@@ -72,7 +79,8 @@
                     android:gravity="start"
                     android:layout_width="match_parent"
                     android:id="@+id/editText"
-                    android:layout_height="200dp"></EditText>
+                    android:textSize="16sp"
+                    android:layout_height="200dp"/>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.mediapipemultihandstrackingapp;
 
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -28,6 +29,7 @@ import com.google.mediapipe.framework.PacketGetter;
 import com.google.mediapipe.framework.Packet;
 import com.google.mediapipe.glutil.EglManager;
 
+import java.security.spec.ECField;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,7 @@ import android.speech.RecognizerIntent;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int NUM_HANDS = 2;
     private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
 
+    public static final String EXTRA_NUMBER_FONT_SIZE2 = "com.example.mediapipemultihandstrackingapp.EXTRA_NUMBER_FONT_SIZE2";
     // Flips the camera-preview frames vertically before sending them into FrameProcessor to be
     // processed in a MediaPipe graph, and flips the processed frames back when they are displayed.
     // This is needed because OpenGL represents images assuming the image origin is at the bottom-left
@@ -102,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
         ImageButton voiceButton;
         ImageButton copyButton;
+
+        ImageButton settingsButton;
 //        ImageButton switcher;
 //        TextInputEditText textInputEditText;
         EditText editText;
@@ -111,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout innerLayout;
         LinearLayout innerLayout2;
 
+        SharedPreferences sp2;
 //      EditText trial;
 
     @Override
@@ -214,6 +221,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sp2 = getSharedPreferences("MyUserPref2", Context.MODE_PRIVATE);
+//        float fontSizeToSent = editText.getPaint().getTextSize();
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPref",Context.MODE_PRIVATE);
+        String fontSizeSp = sp.getString("fontSize","");
+
+        editText.setTextSize(Integer.parseInt(fontSizeSp));
+
+
+        settingsButton = (ImageButton) findViewById(R.id.SettingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(com.example.mediapipemultihandstrackingapp.MainActivity.this, SettingsActivity.class);
+//                intent.putExtra(EXTRA_NUMBER_FONT_SIZE2,);
+//
+                SharedPreferences.Editor editor = sp2.edit();
+                try {
+                    editor.putString("fontSizeDef", fontSizeSp);
+                }catch (Exception e){
+
+                }
+                editor.commit();
+                editor.apply();
+
+                startActivity(intent);
+            }
+        });
+
+//        Intent intent = getIntent();
+//        String fontSizeString = intent.getStringExtra(SettingsActivity.EXTRA_NUMBER_FONT_SIZE);
+
+
+//        editText.setText(fontSizeString);
+//        try {
+//            editText.setTextSize(Integer.valueOf(fontSizeString));
+//        }catch (Exception e){
+//
+//        }
+
+
+
+
+//        Integer fontSize = Integer.valueOf(fontSizeString);
+//        editText.setTextSize(fontSize);
+
 //        switcher.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -226,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+
 
     private void speak(){
         try {
