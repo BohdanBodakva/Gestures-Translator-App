@@ -43,4 +43,11 @@ dependencies {
     implementation "androidx.camera:camera-core:$camerax_version"
     implementation "androidx.camera:camera-camera2:$camerax_version"
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
+
+    implementation 'com.google.mediapipe:hands:latest.release'
+    implementation 'com.google.mediapipe:solution-core:latest.release'
+
+    implementation 'org.tensorflow:tensorflow-lite:2.8.0'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.8.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:2.8.0'
 }
