@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.ActivityNotFoundException;
@@ -42,11 +41,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.speech.RecognizerIntent;
 
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import android.widget.EditText;
@@ -55,10 +52,9 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Main activity of MediaPipe example apps.
@@ -72,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String INPUT_NUM_HANDS_SIDE_PACKET_NAME = "num_hands";
     private static final int NUM_HANDS = 2;
     private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
+
     // Flips the camera-preview frames vertically before sending them into FrameProcessor to be
     // processed in a MediaPipe graph, and flips the processed frames back when they are displayed.
     // This is needed because OpenGL represents images assuming the image origin is at the bottom-left
@@ -100,17 +97,20 @@ public class MainActivity extends AppCompatActivity {
     private ApplicationInfo applicationInfo;
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
-
+//    private boolean isChecked = true;
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
         ImageButton voiceButton;
         ImageButton copyButton;
+//        ImageButton switcher;
 //        TextInputEditText textInputEditText;
         EditText editText;
         Switch themeSwitcher;
+//        Switch frontBackCameraSwitcher;
         LinearLayout mainLayout;
         LinearLayout innerLayout;
         LinearLayout innerLayout2;
+
 //      EditText trial;
 
     @Override
@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
         copyButton = findViewById(R.id.button_copy_text);
         editText = findViewById(R.id.editText);
         themeSwitcher = findViewById(R.id.themeSwitcher);
+//        frontBackCameraSwitcher = findViewById(R.id.frontBackCameraSwitcher);
+//        switcher = findViewById(R.id.button_switch);
 
         mainLayout.bringToFront();
         innerLayout.bringToFront();
@@ -182,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
         voiceButton.bringToFront();
         copyButton.bringToFront();
         themeSwitcher.bringToFront();
+//        frontBackCameraSwitcher.bringToFront();
+//        switcher.bringToFront();
 
         themeSwitcher.setOnCheckedChangeListener((buttonView, isChecked) ->
         {if(isChecked) {
@@ -209,6 +213,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Copied", Toast.LENGTH_SHORT).show();
             }
         });
+
+//        switcher.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                isChecked = !isChecked;
+//
+//                startCamera(false);
+//
+////                    startCamera(true);
+//
+//            }
+//        });
     }
 
     private void speak(){
@@ -304,9 +320,12 @@ public class MainActivity extends AppCompatActivity {
                         eglManager.getContext(), 2);
         converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
-        if (PermissionHelper.cameraPermissionsGranted(this)) {
-            startCamera();
-        }
+
+        startCamera();
+//        if (PermissionHelper.cameraPermissionsGranted(this)) {
+//            startCamera(!isChecked);
+//
+//        }
     }
 
     @Override
@@ -317,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
         // Hide preview display until we re-open the camera again.
         previewDisplayView.setVisibility(View.GONE);
     }
+
 
     @Override
     public void onRequestPermissionsResult(
@@ -336,13 +356,21 @@ public class MainActivity extends AppCompatActivity {
         return null; // No preference and let the camera (helper) decide.
     }
 
-    public void startCamera() {
+    public void startCamera(/*boolean isChecked*/) {
         cameraHelper = new CameraXPreviewHelper();
         cameraHelper.setOnCameraStartedListener(
                 surfaceTexture -> {
                     onCameraStarted(surfaceTexture);
                 });
-        CameraHelper.CameraFacing cameraFacing = CameraHelper.CameraFacing.FRONT;
+//        CameraHelper.CameraFacing cameraFacing = CameraHelper.CameraFacing.BACK;
+        CameraHelper.CameraFacing cameraFacing;
+//        if(isChecked){
+        cameraFacing = CameraHelper.CameraFacing.BACK;
+//        }
+//        else{
+//            cameraFacing = CameraHelper.CameraFacing.BACK;
+//        }
+
         cameraHelper.startCamera(
                 this, cameraFacing, /*unusedSurfaceTexture=*/ null, cameraTargetResolution());
     }
