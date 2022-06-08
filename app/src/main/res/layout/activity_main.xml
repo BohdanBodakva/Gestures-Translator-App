@@ -19,10 +19,14 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:text="@string/no_camera_access" />
-<!--        android:layout_gravity="bottom"-->
+        <!--        android:layout_gravity="bottom"-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="230dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rounded_corners"
+            android:layout_marginBottom="40dp"
             android:id="@+id/main_layout"
             android:layout_gravity="bottom"
             android:orientation="vertical">
@@ -31,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/inner_layout"
+                android:background="@drawable/rounded_corners_top"
                 android:orientation="horizontal">
                 <!--micro button to open google audio-->
                 <ImageButton
@@ -59,28 +64,30 @@
                     android:background="@null"
                     android:src="@drawable/settings"></ImageButton>
             </LinearLayout>
-<!--            <Switch-->
-<!--                android:id="@+id/frontBackCameraSwitcher"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="30dp"></Switch>-->
+            <!--            <Switch-->
+            <!--                android:id="@+id/frontBackCameraSwitcher"-->
+            <!--                android:layout_width="50dp"-->
+            <!--                android:layout_height="30dp"></Switch>-->
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/button_switch"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@null"-->
-<!--                android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>-->
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/button_switch"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:background="@null"-->
+            <!--                android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/inner_layout2"
-                android:background="@color/editText">
+                android:background="@drawable/rounded_corners_bottom">
+
                 <EditText
-                    android:gravity="start"
-                    android:layout_width="match_parent"
                     android:id="@+id/editText"
-                    android:textSize="16sp"
-                    android:layout_height="200dp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_corners_bottom"
+                    android:gravity="start"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
