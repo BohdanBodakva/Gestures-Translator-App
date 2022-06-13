@@ -56,6 +56,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.google.mediapipe.solutioncore.CameraInput;
+import com.google.mediapipe.solutioncore.SolutionGlSurfaceView;
+import com.google.mediapipe.solutions.hands.HandLandmark;
+import com.google.mediapipe.solutions.hands.Hands;
+import com.google.mediapipe.solutions.hands.HandsOptions;
+import com.google.mediapipe.solutions.hands.HandsResult;
+import com.example.mediapipemultihandstrackingapp.HandsResultGlRenderer;
+
 /**
  * Main activity of MediaPipe example apps.
  */
@@ -225,6 +233,53 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+        // For camera input and result rendering with OpenGL.
+        HandsOptions handsOptions =
+                HandsOptions.builder()
+                        .setStaticImageMode(false)
+                        .setMaxNumHands(2)
+                        .setRunOnGpu(true).build();
+        Hands hands = new Hands(this, handsOptions);
+        hands.setErrorListener(
+                (message, e) -> Log.e(TAG, "MediaPipe Hands Error: " + message));
+
+        // Initializes a new CameraInput instance and connects it to MediaPipe Hands Solution.
+        CameraInput cameraInput = new CameraInput(this);
+        cameraInput.setNewFrameListener(
+                textureFrame -> hands.send(textureFrame));
+
+        SolutionGlSurfaceView<HandsResult> glSurfaceView =
+                new SolutionGlSurfaceView<>(
+                        this, hands.getGlContext(), hands.getGlMajorVersion());
+        glSurfaceView.setSolutionResultRenderer(new HandsResultGlRenderer());
+        glSurfaceView.setRenderInputImage(true);
+        hands.setResultListener(
+                handsResult -> {
+                    if (handsResult.multiHandLandmarks().isEmpty()) {
+                        return;
+                    }
+                    NormalizedLandmark wristLandmark =
+                            handsResult.multiHandLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
+                    Log.i(
+                            TAG,
+                            String.format(
+                                    "MediaPipe Hand wrist normalized coordinates (value range: [0, 1]): x=%f, y=%f",
+                                    wristLandmark.getX(), wristLandmark.getY()));
+                    // Request GL rendering.
+                    glSurfaceView.setRenderData(handsResult);
+                    glSurfaceView.requestRender();
+                });
+
+// The runnable to start camera after the GLSurfaceView is attached.
+        glSurfaceView.post(
+                () ->
+                        cameraInput.start(
+                                this,
+                                hands.getGlContext(),
+                                CameraInput.CameraFacing.FRONT,
+                                glSurfaceView.getWidth(),
+                                glSurfaceView.getHeight()));
     }
 
     private void speak(){
