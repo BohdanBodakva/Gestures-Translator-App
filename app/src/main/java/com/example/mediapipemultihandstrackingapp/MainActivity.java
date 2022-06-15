@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.common.collect.ImmutableList;
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmark;
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmarkList;
 import com.google.mediapipe.components.CameraHelper;
@@ -62,7 +63,6 @@ import com.google.mediapipe.solutions.hands.HandLandmark;
 import com.google.mediapipe.solutions.hands.Hands;
 import com.google.mediapipe.solutions.hands.HandsOptions;
 import com.google.mediapipe.solutions.hands.HandsResult;
-import com.example.mediapipemultihandstrackingapp.HandsResultGlRenderer;
 
 /**
  * Main activity of MediaPipe example apps.
@@ -254,6 +254,9 @@ public class MainActivity extends AppCompatActivity {
                         this, hands.getGlContext(), hands.getGlMajorVersion());
         glSurfaceView.setSolutionResultRenderer(new HandsResultGlRenderer());
         glSurfaceView.setRenderInputImage(true);
+
+        KeyPointClassifier keyPointClassifier = new KeyPointClassifier();
+
         hands.setResultListener(
                 handsResult -> {
                     if (handsResult.multiHandLandmarks().isEmpty()) {
@@ -261,6 +264,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                     NormalizedLandmark wristLandmark =
                             handsResult.multiHandLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
+
+                    for (NormalizedLandmarkList handLandmarks: handsResult.multiHandLandmarks()){
+                        List <Double> brect = PointsUtils.calcBoundingRect((float)(glSurfaceView.getWidth()),
+                                (float)(glSurfaceView.getHeight()), handLandmarks);
+                        List<ImmutableList<Double>> landmarkList = PointsUtils.calcLandmarkList((float)(glSurfaceView.getWidth()),
+                                (float)(glSurfaceView.getHeight()), handLandmarks);
+                        List<ImmutableList<Double>> preprocessedLandmarkList = PointsUtils.preprocessLandmark(landmarkList);
+                        int handSignID = keyPointClassifier.call(preprocessedLandmarkList);
+                    }
+
                     Log.i(
                             TAG,
                             String.format(

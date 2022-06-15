@@ -6,8 +6,8 @@ import com.google.mediapipe.formats.proto.LandmarkProto;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Utils {
-    public List<ImmutableList<Double>> calcLandmarkList(double imageWidth, double imageHeight, LandmarkProto.NormalizedLandmarkList landmarks){
+public abstract class PointsUtils {
+    public static List<ImmutableList<Double>> calcLandmarkList(double imageWidth, double imageHeight, LandmarkProto.NormalizedLandmarkList landmarks){
         List<ImmutableList<Double>> res = new LinkedList<>();
         for (LandmarkProto.NormalizedLandmark landmark: landmarks.getLandmarkList()){
             res.add(ImmutableList.of(landmark.getX() * imageWidth, landmark.getY() * imageHeight));
@@ -15,7 +15,7 @@ public abstract class Utils {
         return res;
     }
 
-    public List<Double> calcBoundingRect(float imageWidth, float imageHeight, LandmarkProto.NormalizedLandmarkList landmarks){
+    public static List<Double> calcBoundingRect(float imageWidth, float imageHeight, LandmarkProto.NormalizedLandmarkList landmarks){
         List<ImmutableList<Double>> points = calcLandmarkList(imageWidth, imageHeight, landmarks);
         List<Double> res = new LinkedList<>();
         res.add(Double.valueOf(imageWidth));
@@ -31,7 +31,7 @@ public abstract class Utils {
         return res;
     }
 
-    public List<ImmutableList<Double>> preprocessLandmark(List<ImmutableList<Double>> landmarkList){
+    public static List<ImmutableList<Double>> preprocessLandmark(List<ImmutableList<Double>> landmarkList){
         double baseX = landmarkList.get(0).get(0);
         double baseY = landmarkList.get(0).get(1);
         double max = 0;
