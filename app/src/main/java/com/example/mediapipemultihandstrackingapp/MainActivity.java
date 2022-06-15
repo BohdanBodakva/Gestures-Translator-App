@@ -54,6 +54,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         EditText editText;
         Switch themeSwitcher;
 //        Switch frontBackCameraSwitcher;
+        RelativeLayout topLayout;
         LinearLayout mainLayout;
         LinearLayout innerLayout;
         LinearLayout innerLayout2;
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
         /*set up*/
+        topLayout = findViewById(R.id.top_layout);
         mainLayout = findViewById(R.id.main_layout);
         innerLayout = findViewById(R.id.inner_layout);
         innerLayout2 = findViewById(R.id.inner_layout2);
@@ -187,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 //        frontBackCameraSwitcher = findViewById(R.id.frontBackCameraSwitcher);
         switcher = findViewById(R.id.button_switch);
 
+        topLayout.bringToFront();
         mainLayout.bringToFront();
         innerLayout.bringToFront();
         innerLayout2.bringToFront();

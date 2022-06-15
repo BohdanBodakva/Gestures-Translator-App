@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name" translatable="false">Gestures Translator</string>
-    <string name="no_camera_access" translatable="false">"If camera is not loading: 1) Your android version should be 10+ 2) Check if all camera permissions are granted
-        3) If camera still not working reload it by switching perspective from front to back or just reload an app  4) if you've done all of above, wait a bit for your CPU to start."</string>
-
+    <string name="no_camera_access" translatable="false">"<br>"If camera is not loading:\n\n"</br>
+        <br>"1) Check if your android version is 10+\n"</br>
+        <br>"2) Check if all camera permissions are granted\n"</br>
+        <br>"3) If camera still not working reload it by switching perspective from front to back or just reload an app\n"</br>
+        <br>"4) if you've done all of above, wait a bit for your CPU to start"</br>"
+    </string>
 
     <string name="title_activity_settings">SettingsActivity</string>
 

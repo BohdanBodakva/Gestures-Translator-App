@@ -13,16 +13,47 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
+        <!--        android:layout_gravity="bottom"-->
+
         <TextView
             android:id="@+id/no_camera_access_view"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="260dp"
+            android:layout_gravity="left"
             android:text="@string/no_camera_access" />
-<!--        android:layout_gravity="bottom"-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/top_layout"
+            >
+
+            <ImageButton
+                android:id="@+id/button_switch"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:src="@drawable/camera_switch"></ImageButton>
+
+            <ImageButton
+                android:id="@+id/SettingsButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:src="@drawable/settings"></ImageButton>
+        </RelativeLayout>
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="230dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/rounded_corners"
+            android:layout_marginBottom="16dp"
             android:id="@+id/main_layout"
             android:layout_gravity="bottom"
             android:orientation="vertical">
@@ -31,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/inner_layout"
+                android:background="@drawable/rounded_corners_top"
                 android:orientation="horizontal">
                 <!--micro button to open google audio-->
                 <ImageButton
@@ -52,18 +84,18 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"></Switch>
 
-                <ImageButton
-                    android:id="@+id/SettingsButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@null"
-                    android:src="@drawable/settings"></ImageButton>
-                <ImageButton
-                    android:id="@+id/button_switch"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@null"
-                    android:src="@drawable/camera_switch"></ImageButton>
+<!--                <ImageButton-->
+<!--                    android:id="@+id/SettingsButton"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:background="@null"-->
+<!--                    android:src="@drawable/settings"></ImageButton>-->
+<!--                <ImageButton-->
+<!--                    android:id="@+id/button_switch"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:background="@null"-->
+<!--                    android:src="@drawable/camera_switch"></ImageButton>-->
             </LinearLayout>
 <!--            <Switch-->
 <!--                android:id="@+id/frontBackCameraSwitcher"-->
@@ -75,11 +107,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/inner_layout2"
-                android:background="@color/editText">
+                android:background="@drawable/rounded_corners_bottom">
+<!--                android:background="@color/editText"-->
                 <EditText
                     android:gravity="start"
                     android:layout_width="match_parent"
                     android:id="@+id/editText"
+                    android:textColor="#FF505052"
                     android:textSize="16sp"
                     android:layout_height="200dp"/>
             </LinearLayout>
