@@ -3,7 +3,9 @@ package com.example.mediapipemultihandstrackingapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     public Button customizeTextButton;
     public Button saveSettings;
     String fontSizeString;
+    StringBuilder fontPath;
 
     SharedPreferences sp;
 
@@ -45,22 +48,10 @@ public class SettingsActivity extends AppCompatActivity {
         fontSizeSpinner.setAdapter(fontSizeAdapter);
 
 
-//        fontSizeSpinner.setSelection(fontSizeAdapter.getPosition("300"));
-        SharedPreferences sp2 = getApplicationContext().getSharedPreferences("MyUserPref2",Context.MODE_PRIVATE);
-        String fontSizeSp = sp2.getString("fontSizeDef","");
-
-        fontSizeSpinner.setSelection(fontSizeAdapter.getPosition(fontSizeSp));
-//
-//        textViewFontSize.setText(fontSizeSp);
+//        SharedPreferences sp2 = getApplicationContext().getSharedPreferences("MyUserPref2",Context.MODE_PRIVATE);
+//        String fontSizeSp = sp2.getString("fontSizeDef","");
 //        fontSizeSpinner.setSelection(fontSizeAdapter.getPosition(fontSizeSp));
-
-//        Integer defaultFontSize = 16;
-//        try {
-//            defaultFontSize = Integer.parseInt(fontSizeSpinner.getSelectedItem().toString());
-//            fontSizeSpinner.setSelection(defaultFontSize);
-//        }catch(Exception e){
-//
-//        }
+//        font
 
 
         String[] textBarSizes = new String[]{
@@ -83,7 +74,10 @@ public class SettingsActivity extends AppCompatActivity {
         memorySizeSpinner.setAdapter(memorySizeAdapter);
 
         String[] fontFamilies = new String[] {
-                "Serif", "Sans-serif", "monospace", "cursive", "fantasy"
+                "montserratbold","montserratitalic","montserratklight",
+                "nanumgothicbold","nanumgothicregular",
+                "robotobold","robotoitalic","robotolight",
+                "serifbold", "serifbolditalic", "serifitalic", "serifregular",
         };
         Spinner fontFamilySpinner = (Spinner) findViewById(R.id.fontFamilySpinner);
         ArrayAdapter<String> fontFamilyAdapter = new ArrayAdapter<>(this,
@@ -91,37 +85,41 @@ public class SettingsActivity extends AppCompatActivity {
         fontFamilyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fontFamilySpinner.setAdapter(fontFamilyAdapter);
 
+        SharedPreferences sp2 = getApplicationContext().getSharedPreferences("MyUserPref2",Context.MODE_PRIVATE);
+        String fontSizeSp = sp2.getString("fontSizeDef","");
+        String fontFamilyPath = sp2.getString("fontFamilyPath","");
+        StringBuilder shorterOfFontFamilyPath = new StringBuilder(fontFamilyPath);
+        shorterOfFontFamilyPath.delete(0,6);
+        shorterOfFontFamilyPath.delete(shorterOfFontFamilyPath.length()-4,shorterOfFontFamilyPath.length());
 
+//        Log.d("OLEG_POS_FAMILY_FONT", String.valueOf(fontFamilyAdapter.getPosition(fontFamilyPath)));
+//        Log.d("OLEG_FONT_SIZE_POS", String.valueOf(fontSizeAdapter.getPosition(fontSizeSp)));
 
-//                Intent intentTextSize = new Intent(SettingsActivity.this, MainActivity.class);
-//                String fontSizeString = fontSizeSpinner.getSelectedItem().toString();
-//                textViewFontSize.setText(fontSizeString);
-//                intentTextSize.putExtra(EXTRA_NUMBER_FONT_SIZE,fontSizeString);
+        fontSizeSpinner.setSelection(fontSizeAdapter.getPosition(fontSizeSp));
+        fontFamilySpinner.setSelection(fontFamilyAdapter.getPosition(String.valueOf(shorterOfFontFamilyPath)));
 
         fontSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intentTextSize = new Intent(SettingsActivity.this, MainActivity.class);
-//                String fontSizeString = fontSizeSpinner.getSelectedItem().toString();
-//                textViewFontSize.setTextSize(Integer.valueOf(fontSizeString));
-//                intentTextSize.putExtra(EXTRA_NUMBER_FONT_SIZE,fontSizeString);
                 fontSizeString = fontSizeSpinner.getSelectedItem().toString();
                 textViewFontSize.setTextSize(Integer.parseInt(fontSizeString));
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-//                textViewFontSize.setTextSize(20);
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+//        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/serifbold.ttf");
+//        textViewFontSize.setTypeface(typeface);
         fontFamilySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String fontStyle = fontFamilySpinner.getSelectedItem().toString();
-                textViewFontSize.setFontFeatureSettings(fontStyle);
-
+                fontPath =  new StringBuilder("fonts/");
+                fontPath.insert(fontPath.length(),fontStyle);
+                fontPath.insert(fontPath.length(),".ttf");
+                Typeface typeface = Typeface.createFromAsset(getAssets(), String.valueOf(fontPath));
+                textViewFontSize.setTypeface(typeface);
             }
 
             @Override
@@ -139,7 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sp.edit();
 
                 editor.putString("fontSize",fontSizeString);
-
+                editor.putString("fontFamily", String.valueOf(fontPath));
 
                 editor.commit();
                 editor.apply();
@@ -147,7 +145,6 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(SettingsActivity.this,"Settings were saved",Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
 
@@ -175,8 +172,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
-//                intent.putExtra(EXTRA_NUMBER_FONT_SIZE,);
-
                 startActivity(intent);
             }
         });
@@ -184,12 +179,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-
         Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-
         textViewFontSize.setTextSize(Integer.parseInt(fontSizeString));
         intent.putExtra(EXTRA_NUMBER_FONT_SIZE,fontSizeString);
+        finish();
         startActivity(intent);
     }
 }

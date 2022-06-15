@@ -43,7 +43,7 @@
                 <ImageButton
                     android:id="@+id/button_copy_text"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:background="@null"
                     android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>
                 <!--switcher between black and white themes-->
@@ -58,18 +58,19 @@
                     android:layout_height="30dp"
                     android:background="@null"
                     android:src="@drawable/settings"></ImageButton>
+                <ImageButton
+                    android:id="@+id/button_switch"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:src="@drawable/camera_switch"></ImageButton>
             </LinearLayout>
 <!--            <Switch-->
 <!--                android:id="@+id/frontBackCameraSwitcher"-->
 <!--                android:layout_width="50dp"-->
 <!--                android:layout_height="30dp"></Switch>-->
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/button_switch"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@null"-->
-<!--                android:src="@drawable/ic_baseline_content_copy_24"></ImageButton>-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"

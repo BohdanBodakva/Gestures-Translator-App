@@ -5,10 +5,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.SurfaceTexture;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.Size;
 import android.view.SurfaceHolder;
@@ -70,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String OUTPUT_LANDMARKS_STREAM_NAME = "hand_landmarks";
     private static final String INPUT_NUM_HANDS_SIDE_PACKET_NAME = "num_hands";
     private static final int NUM_HANDS = 2;
-    private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
+//    private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
 
-    public static final String EXTRA_NUMBER_FONT_SIZE2 = "com.example.mediapipemultihandstrackingapp.EXTRA_NUMBER_FONT_SIZE2";
+//    public static final String EXTRA_NUMBER_FONT_SIZE2 = "com.example.mediapipemultihandstrackingapp.EXTRA_NUMBER_FONT_SIZE2";
     // Flips the camera-preview frames vertically before sending them into FrameProcessor to be
     // processed in a MediaPipe graph, and flips the processed frames back when they are displayed.
     // This is needed because OpenGL represents images assuming the image origin is at the bottom-left
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton copyButton;
 
         ImageButton settingsButton;
-//        ImageButton switcher;
+        ImageButton switcher;
 //        TextInputEditText textInputEditText;
         EditText editText;
         Switch themeSwitcher;
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout innerLayout2;
 
         SharedPreferences sp2;
+        boolean frontOn = false;
 //      EditText trial;
 
     @Override
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText);
         themeSwitcher = findViewById(R.id.themeSwitcher);
 //        frontBackCameraSwitcher = findViewById(R.id.frontBackCameraSwitcher);
-//        switcher = findViewById(R.id.button_switch);
+        switcher = findViewById(R.id.button_switch);
 
         mainLayout.bringToFront();
         innerLayout.bringToFront();
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         copyButton.bringToFront();
         themeSwitcher.bringToFront();
 //        frontBackCameraSwitcher.bringToFront();
-//        switcher.bringToFront();
+        switcher.bringToFront();
 
         themeSwitcher.setOnCheckedChangeListener((buttonView, isChecked) ->
         {if(isChecked) {
@@ -225,8 +228,16 @@ public class MainActivity extends AppCompatActivity {
 //        float fontSizeToSent = editText.getPaint().getTextSize();
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPref",Context.MODE_PRIVATE);
         String fontSizeSp = sp.getString("fontSize","");
+        String fontFamilyPath = sp.getString("fontFamily","");
 
         editText.setTextSize(Integer.parseInt(fontSizeSp));
+        try {
+            Typeface typeface = Typeface.createFromAsset(getAssets(), String.valueOf(fontFamilyPath));
+            editText.setTypeface(typeface);
+        }catch(Exception e){
+            System.out.println("Exception with set fonts was found");
+        }
+
 
 
         settingsButton = (ImageButton) findViewById(R.id.SettingsButton);
@@ -240,43 +251,52 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     editor.putString("fontSizeDef", fontSizeSp);
                 }catch (Exception e){
-
+                    System.out.println("Exception with sending font size was found");
                 }
+                try {
+                    editor.putString("fontFamilyPath",fontFamilyPath);
+                }catch (Exception e){
+                    System.out.println("Exception with sending font family was found");
+                }
+
+
                 editor.commit();
                 editor.apply();
+                finish();
 
                 startActivity(intent);
             }
         });
 
-//        Intent intent = getIntent();
-//        String fontSizeString = intent.getStringExtra(SettingsActivity.EXTRA_NUMBER_FONT_SIZE);
+//        this switchs beetween back and front camera
+        switcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(com.example.mediapipemultihandstrackingapp.MainActivity.this, com.example.mediapipemultihandstrackingapp.MainActivity.class);
+                SharedPreferences sp3 = getSharedPreferences("frontOn", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp3.edit();
+                frontOn = !frontOn;
+                try {
+                    editor.putString("frontOn", String.valueOf(frontOn));
+                }catch (Exception e){
+                    System.out.println("Exception with sending font size was found");
+                }
+
+                editor.commit();
+                editor.apply();
+                finish();
+
+                startActivity(intent3);
+            }
+        });
 
 
-//        editText.setText(fontSizeString);
-//        try {
-//            editText.setTextSize(Integer.valueOf(fontSizeString));
-//        }catch (Exception e){
-//
-//        }
-
-
-
-
-//        Integer fontSize = Integer.valueOf(fontSizeString);
-//        editText.setTextSize(fontSize);
-
-//        switcher.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                isChecked = !isChecked;
-//
-//                startCamera(false);
-//
-////                    startCamera(true);
-//
-//            }
-//        });
+//      this switchs beetween back and front camera
+        SharedPreferences sp3 = getApplicationContext().getSharedPreferences("frontOn",Context.MODE_PRIVATE);
+        frontOn = Boolean.parseBoolean(sp3.getString("frontOn",""));
+        startCamera(frontOn);
+        onResume();
+        MainActivity.this.recreate();
     }
 
 
@@ -329,16 +349,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-//
-//    /* keyboard is hiding when touch to some area on sсreen*/
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        if (getCurrentFocus() != null) {
-//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
+
+//    /* keyboard hides when touch to some area on sсreen*/
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -375,11 +387,7 @@ public class MainActivity extends AppCompatActivity {
         converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
 
-        startCamera();
-//        if (PermissionHelper.cameraPermissionsGranted(this)) {
-//            startCamera(!isChecked);
-//
-//        }
+        startCamera(frontOn);
     }
 
     @Override
@@ -410,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
         return null; // No preference and let the camera (helper) decide.
     }
 
-    public void startCamera(/*boolean isChecked*/) {
+    public void startCamera(boolean frontOn) {
         cameraHelper = new CameraXPreviewHelper();
         cameraHelper.setOnCameraStartedListener(
                 surfaceTexture -> {
@@ -418,15 +426,16 @@ public class MainActivity extends AppCompatActivity {
                 });
 //        CameraHelper.CameraFacing cameraFacing = CameraHelper.CameraFacing.BACK;
         CameraHelper.CameraFacing cameraFacing;
-//        if(isChecked){
-        cameraFacing = CameraHelper.CameraFacing.BACK;
-//        }
-//        else{
-//            cameraFacing = CameraHelper.CameraFacing.BACK;
-//        }
+        if(frontOn){
+            cameraFacing = CameraHelper.CameraFacing.FRONT;
+        }
+        else{
+            cameraFacing = CameraHelper.CameraFacing.BACK;
+        }
 
         cameraHelper.startCamera(
                 this, cameraFacing, /*unusedSurfaceTexture=*/ null, cameraTargetResolution());
+
     }
 
     protected Size computeViewSize(int width, int height) {
@@ -452,6 +461,8 @@ public class MainActivity extends AppCompatActivity {
                 previewFrameTexture,
                 isCameraRotated ? displaySize.getHeight() : displaySize.getWidth(),
                 isCameraRotated ? displaySize.getWidth() : displaySize.getHeight());
+        previewFrameTexture.updateTexImage();
+
     }
 
     private void setupPreviewDisplayView() {
