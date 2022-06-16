@@ -30,7 +30,7 @@ public class KeyPointClassifier {
         return this.MODEL_PATH;
     }
 
-    public KeyPointClassifier(String modelPath){
+    public KeyPointClassifier(){
         this.interpreter = new Interpreter(new File(MODEL_PATH));
         this.interpreter.allocateTensors();
         this.inputIndex = this.interpreter.getInputIndex("index");
